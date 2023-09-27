@@ -26,14 +26,12 @@ namespace TestWpfWithCore
         {
             InitializeComponent();
 
-            moving = new Moving(Button_Target);
             
         }
 
         private void Button_Target_Click(object sender, RoutedEventArgs e)
         {
-            moving.Move();
-            Button_Target.Margin=new Thickness(200,100,0,0);
+            Moving.Move(Button_Target);
         }
     }
 }
