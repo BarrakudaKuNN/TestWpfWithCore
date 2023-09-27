@@ -25,8 +25,12 @@ namespace TestWpfWithCore
         public MainWindow()
         {
             InitializeComponent();
+            Moving.boom += Moving_boom;
+        }
 
-            
+        private void Moving_boom(object? sender, EventArgs e)
+        {
+            Button_Target.Margin = new Thickness(Moving.x, Moving.y, 0, 0);
         }
 
         private void Button_Target_Click(object sender, RoutedEventArgs e)
