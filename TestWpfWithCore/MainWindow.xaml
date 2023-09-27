@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid x:Name="PlayZone"/>
+        <Grid x:Name="PlayZone">
+            <Button x:Name="Button_Target" Content="Hit Me Loser!!!!" HorizontalAlignment="Left" VerticalAlignment="Top" Height="63" Width="132" Margin="10,10,0,0" Click="Button_Target_Click"/>
+        </Grid>
 
     </Grid>
 </Window>

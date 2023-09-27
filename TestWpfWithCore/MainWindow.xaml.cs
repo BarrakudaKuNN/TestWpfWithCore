@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestWpfWithCore.Logic;
 
 namespace TestWpfWithCore
 {
@@ -20,9 +21,19 @@ namespace TestWpfWithCore
     /// </summary>
     public partial class MainWindow : Window
     {
+        Moving moving;
         public MainWindow()
         {
             InitializeComponent();
+
+            moving = new Moving(Button_Target);
+            
+        }
+
+        private void Button_Target_Click(object sender, RoutedEventArgs e)
+        {
+            moving.Move();
+            Button_Target.Margin=new Thickness(200,100,0,0);
         }
     }
 }
