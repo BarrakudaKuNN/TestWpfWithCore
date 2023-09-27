@@ -11,29 +11,34 @@ namespace TestWpfWithCore.Logic
 {
     internal class Moving
     {
-        Button toMove;
 
-        int y=10;
-        int x=10;
-
-
-        public Moving(Button button) 
-        {
-            this.toMove = button;
-        }
+        static int y=10;
+        static int x=10;
         //"658,361,0,0" 10,10,0,0"
-        public async void Move()
+        public static async void Move(Button button)
         {
-            await Direction();
-            toMove.Margin = new Thickness(y, x, 0, 0);
+            Task.Run(async () => await Direction());
+            Task.Run(async () => await Refresh(button));
+
+            button.Margin = new Thickness(y, x, 0, 0);
+               
+            
         }
 
-        public async Task Direction()
+        public static async Task Direction()
         {
             for (int i = 0; i < 200; i++)
             {
                 y++;
                 x++;
+                await Task.Delay(100);
+            }
+        }
+        public static async Task Refresh(Button button)
+        {
+            for (int i = 0; i < 200; i++)
+            {
+                button.Margin = new Thickness(y, x, 0, 0);
                 await Task.Delay(100);
             }
         }
