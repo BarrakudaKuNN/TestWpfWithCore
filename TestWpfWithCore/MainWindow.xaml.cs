@@ -28,14 +28,15 @@ namespace TestWpfWithCore
             Moving.boom += Moving_boom;
         }
 
-        private void Moving_boom(object? sender, EventArgs e)
+        private void Moving_boom()
         {
-            Button_Target.Margin = new Thickness(Moving.x, Moving.y, 0, 0);
+            Button_Target.Margin = new Thickness(Moving.y, Moving.x, 0, 0);
         }
 
         private void Button_Target_Click(object sender, RoutedEventArgs e)
         {
             Moving.Move(Button_Target);
+            //Button_Target.Margin = new Thickness(Moving.y, Moving.x, 0, 0);
         }
     }
 }
