@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,21 +22,36 @@ namespace TestWpfWithCore
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Thread moveThread;
         Moving moving;
         public MainWindow()
         {
             InitializeComponent();
-            Moving.boom += Moving_boom;
-        }
-
-        private void Moving_boom(object? sender, EventArgs e)
-        {
-            Button_Target.Margin = new Thickness(Moving.x, Moving.y, 0, 0);
+            moving = new Moving(Button_slow_guy,Dispatcher);
         }
 
         private void Button_Target_Click(object sender, RoutedEventArgs e)
         {
-            Moving.Move(Button_Target);
+
+            moveThread = new Thread(new ThreadStart(MoveButton));
+            moveThread.Start();
+
+        }
+        private void MoveButton()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Button_Target.Margin = new Thickness(i, i, 0, 0);
+                });
+                Thread.Sleep(50);
+            }
+        }
+
+        private void Button_slow_guy_Click(object sender, RoutedEventArgs e)
+        {
+            moving.Move();
         }
     }
 }

@@ -7,42 +7,45 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace TestWpfWithCore.Logic
 {
     internal class Moving
     {
-        public static event EventHandler boom;
-        public static int y=10;
-        public static int x=10;
-        //"658,361,0,0" 10,10,0,0"
-        public static async void Move(Button button)
-        {
-            Task.Run(async () => await Direction());
-            Task.Run(async () => await Refresh(button));
-
-        }
-
-        public static async Task Direction()
-        {
-            for (int i = 0; i < 200; i++)
-            {
-                y++;
-                x++;
-                await Task.Delay(100);
-            }
-        }
-        public static async Task Refresh(Button button)
-        {
-            for (int i = 0; i < 200; i++)
-            {
-                button.Margin = new Thickness(y, x, 0, 0);
-                boom?.Invoke(null, EventArgs.Empty);
-                await Task.Delay(100);
-            }
-            
-        }
         
+        Button button1;
+        Dispatcher dispatcher;
+        public static int y = 10;
+        public static int x = 10;
 
+        public Moving(Button button,Dispatcher dispatcher)
+        { 
+            this.button1 = button;
+            this.dispatcher = dispatcher;
+        }
+
+        Thread second_Button_Move;
+
+        public void Move()
+        {
+            second_Button_Move = new Thread(new ThreadStart(Move_Logic));
+            second_Button_Move.Start();
+        }
+        //Method to start logic
+        void Move_Logic()
+        {
+            int j = 0;
+            for (int i = 0; i < 100; i++,j++)
+            {
+                dispatcher.Invoke(() =>
+                {
+                    button1.Margin = new Thickness(x, y, 0, 0);
+                });
+                x += 4;
+                y += 6;
+                Thread.Sleep(50);
+            }
+        }
     }
 }
