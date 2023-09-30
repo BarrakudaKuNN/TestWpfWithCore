@@ -7,37 +7,45 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace TestWpfWithCore.Logic
 {
     internal class Moving
     {
-        public static event Action boom;
-        public static int y=10;
-        public static int x=10;
-        //"658,361,0,0" 10,10,0,0"
-        public static async void Move(Button button)
-        {
-            Task.Run(async () => await Direction());
-            Task.Run(async () => await Refresh());
+        
+        Button button1;
+        Dispatcher dispatcher;
+        public static int y = 10;
+        public static int x = 10;
 
+        public Moving(Button button,Dispatcher dispatcher)
+        { 
+            this.button1 = button;
+            this.dispatcher = dispatcher;
         }
 
-        public static async Task Direction()
+        Thread second_Button_Move;
+
+        public void Move()
         {
-            for (int i = 0; i < 10; i++)
+            second_Button_Move = new Thread(new ThreadStart(Move_Logic));
+            second_Button_Move.Start();
+        }
+
+        void Move_Logic()
+        {
+            int j = 0;
+            for (int i = 0; i < 100; i++,j++)
             {
-                y+=10;
-                x+=10;
-                boom.Invoke();
-                await Task.Delay(100);
+                dispatcher.Invoke(() =>
+                {
+                    button1.Margin = new Thickness(x, y, 0, 0);
+                });
+                x += 4;
+                y += 6;
+                Thread.Sleep(50);
             }
         }
-        public static async Task Refresh()
-        {
-            boom.Invoke();
-        }
-        
-
     }
 }
