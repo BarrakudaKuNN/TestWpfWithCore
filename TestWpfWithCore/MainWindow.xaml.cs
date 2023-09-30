@@ -33,8 +33,9 @@ namespace TestWpfWithCore
         private void Button_Target_Click(object sender, RoutedEventArgs e)
         {
 
-            moveThread = new Thread(new ThreadStart(MoveButton));
-            moveThread.Start();
+            //moveThread = new Thread(new ThreadStart(MoveButton));
+            //moveThread.Start();
+            moving.Move();
 
         }
         private void MoveButton()
@@ -51,7 +52,7 @@ namespace TestWpfWithCore
 
         private void Button_slow_guy_Click(object sender, RoutedEventArgs e)
         {
-            moving.Move();
+            moving.Cancel();
         }
     }
 }

@@ -53,6 +53,8 @@ namespace TestWpfWithCore.Logic
         public void Cancel()
         {
             tokenSource.Cancel();
+            //tokenSource.Dispose();
+            Task.d
         }
 
         private Task Move_Logic(CancellationToken cancellationToken)
