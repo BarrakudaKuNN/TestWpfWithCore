@@ -32,7 +32,7 @@ namespace TestWpfWithCore.Logic
             second_Button_Move = new Thread(new ThreadStart(Move_Logic));
             second_Button_Move.Start();
         }
-
+        //Method to start logic
         void Move_Logic()
         {
             int j = 0;
