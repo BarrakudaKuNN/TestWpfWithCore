@@ -15,14 +15,13 @@ namespace TestWpfWithCore.Logic
     internal class Moving
     {
         
-        Button button1;
         Dispatcher dispatcher;
         public static int y = 10;
         public static int x = 10;
 
-        public Moving(Button button,Dispatcher dispatcher)
+        public Moving(Dispatcher dispatcher)
         { 
-            this.button1 = button;
+            
             this.dispatcher = dispatcher;
         }
 
@@ -38,11 +37,13 @@ namespace TestWpfWithCore.Logic
         //            Обновление свойства Margin кнопки теперь выполняется с помощью метода InvokeAsync() у объекта Dispatcher, 
         //            что позволяет использовать Async/await для более удобного управления асинхронными операциями.
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        public async void Move()
+        public async void Move(Button button1)
         {
             try
             {
-                await Move_Logic(tokenSource.Token);
+                
+                
+                await Move_Logic(tokenSource.Token, button1);
             }
             catch (OperationCanceledException)
             {
@@ -54,15 +55,14 @@ namespace TestWpfWithCore.Logic
         {
             tokenSource.Cancel();
             //tokenSource.Dispose();
-            Task.d
         }
 
-        private Task Move_Logic(CancellationToken cancellationToken)
+        private Task Move_Logic(CancellationToken cancellationToken, Button button1)
         {
             return Task.Run(async () =>
             {
                 int j = 0;
-                for (int i = 0; i < 100; i++, j++)
+                for (int i = 0; i < 10; i++, j++)
                 {
                     // Обновляем свойство Margin у кнопки с помощью Dispatcher
                     await dispatcher.InvokeAsync(() =>
@@ -73,9 +73,19 @@ namespace TestWpfWithCore.Logic
                     // Увеличиваем координаты x и y на определенный шаг
                     x += 4;
                     y += 6;
-
+                    
                     // Приостанавливаем выполнение асинхронной операции на 50 миллисекунд
                     await Task.Delay(50, cancellationToken);
+                    
+                }
+                if (x >= 100 & y >= 150)
+                {
+                    for (int b = 0; b < 10; b++)
+                    {
+                        x -= 4;
+                        y -= 6;
+                    }
+
                 }
             }, cancellationToken);
         }
