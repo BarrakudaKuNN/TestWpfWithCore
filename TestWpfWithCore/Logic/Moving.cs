@@ -16,6 +16,7 @@ namespace TestWpfWithCore.Logic
     {
         
         Dispatcher dispatcher;
+        Random random;
         public static int y = 10;
         public static int x = 10;
 
@@ -59,10 +60,27 @@ namespace TestWpfWithCore.Logic
 
         private Task Move_Logic(CancellationToken cancellationToken, Button button1)
         {
+            random = new Random();
             return Task.Run(async () =>
             {
-                int j = 0;
-                for (int i = 0; i < 10; i++, j++)
+                //int j = 0;
+                //for (int i = 0; i < 10; i++, j++)
+                //{
+                //    // Обновляем свойство Margin у кнопки с помощью Dispatcher
+                //    await dispatcher.InvokeAsync(() =>
+                //    {
+                //        button1.Margin = new Thickness(x, y, 0, 0);
+                //    });
+
+                //    // Увеличиваем координаты x и y на определенный шаг
+                //    x += 4;
+                //    y += 6;
+
+                //    // Приостанавливаем выполнение асинхронной операции на 50 миллисекунд
+                //    await Task.Delay(50, cancellationToken);
+
+                //}
+                for (int i = 0; i < 10; i++)
                 {
                     // Обновляем свойство Margin у кнопки с помощью Dispatcher
                     await dispatcher.InvokeAsync(() =>
@@ -71,21 +89,11 @@ namespace TestWpfWithCore.Logic
                     });
 
                     // Увеличиваем координаты x и y на определенный шаг
-                    x += 4;
-                    y += 6;
-                    
+                    x = random.Next(10, 600);
+                    y = random.Next(10, 150);
+
                     // Приостанавливаем выполнение асинхронной операции на 50 миллисекунд
                     await Task.Delay(50, cancellationToken);
-                    
-                }
-                if (x >= 100 & y >= 150)
-                {
-                    for (int b = 0; b < 10; b++)
-                    {
-                        x -= 4;
-                        y -= 6;
-                    }
-
                 }
             }, cancellationToken);
         }

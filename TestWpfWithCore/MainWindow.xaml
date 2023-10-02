@@ -9,7 +9,7 @@
     <Grid>
         <Grid x:Name="PlayZone">
             <Button x:Name="Button_Target" Content="Hit Me Loser!!!!" HorizontalAlignment="Left" VerticalAlignment="Top" Height="49" Width="92" Margin="0,341,0,0" Click="Button_Target_Click"/>
-            <Button x:Name="Button_slow_guy" Content="You can do it" HorizontalAlignment="Left" Margin="197,63,0,0" VerticalAlignment="Top" Height="35" Width="143" Click="Button_slow_guy_Click"/>
+            <Button x:Name="Button_slow_guy" Content="You can do it" HorizontalAlignment="Left" Margin="152,124,0,0" VerticalAlignment="Top" Height="35" Width="143" Click="Button_slow_guy_Click"/>
         </Grid>
 
     </Grid>

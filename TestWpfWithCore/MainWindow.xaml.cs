@@ -35,8 +35,7 @@ namespace TestWpfWithCore
 
             //moveThread = new Thread(new ThreadStart(MoveButton));
             //moveThread.Start();
-            moving.Move(Button_slow_guy);
-
+            Button_slow_guy.Margin = new Thickness(10,10,0,0);
         }
         private void MoveButton()
         {
