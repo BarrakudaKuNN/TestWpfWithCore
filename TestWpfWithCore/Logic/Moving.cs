@@ -80,7 +80,26 @@ namespace TestWpfWithCore.Logic
                 //    await Task.Delay(50, cancellationToken);
 
                 //}
-                for (int i = 0; i < 10; i++)
+
+
+
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    // Обновляем свойство Margin у кнопки с помощью Dispatcher
+                //    await dispatcher.InvokeAsync(() =>
+                //    {
+                //        button1.Margin = new Thickness(x, y, 0, 0);
+                //    });
+
+                //    // Увеличиваем координаты x и y на определенный шаг
+                //    x = random.Next(10, 600);
+                //    y = random.Next(10, 150);
+
+                //    // Приостанавливаем выполнение асинхронной операции на 50 миллисекунд
+                //    await Task.Delay(50, cancellationToken);
+                //}
+
+                while (true)
                 {
                     // Обновляем свойство Margin у кнопки с помощью Dispatcher
                     await dispatcher.InvokeAsync(() =>
@@ -89,8 +108,80 @@ namespace TestWpfWithCore.Logic
                     });
 
                     // Увеличиваем координаты x и y на определенный шаг
-                    x = random.Next(10, 600);
-                    y = random.Next(10, 150);
+
+                    if(x>=599 & y >= 150)
+                    {
+                        while(x<=10 | y <= 10)
+                        {
+                            await dispatcher.InvokeAsync(() =>
+                            {
+                                button1.Margin = new Thickness(x, y, 0, 0);
+                            });
+                            x -= 2;
+                            y -= 2;
+                            await Task.Delay(200, cancellationToken);
+                        }
+                    }
+                    if (x <= 10)
+                    {
+                        for (int i = 0; i < 600; i++)
+                        {
+                            await dispatcher.InvokeAsync(() =>
+                            {
+                                button1.Margin = new Thickness(x, y, 0, 0);
+                            });
+                            await Task.Delay(50, cancellationToken);
+                            x += 5;
+                            if (x >= 599)
+                                break;
+                            
+                        }
+                    }
+                    if (x >= 599)
+                    {
+                        for (int i = 0; i < 600; i++)
+                        {
+                            await dispatcher.InvokeAsync(() =>
+                            {
+                                button1.Margin = new Thickness(x, y, 0, 0);
+                            });
+                            await Task.Delay(50, cancellationToken);
+                            x -= 5;
+                            if (x <= 10)
+                                break;
+
+                        }
+                    }
+                    if (y <= 10)
+                    {
+                        for (int i = 0; i < 600; i++)
+                        {
+                            await dispatcher.InvokeAsync(() =>
+                            {
+                                button1.Margin = new Thickness(x, y, 0, 0);
+                            });
+                            await Task.Delay(50, cancellationToken);
+                            y += 3;
+                            if (y >= 149)
+                                break;
+
+                        }
+                    }
+                    if (y >= 145)
+                    {
+                        for (int i = 0; i < 600; i++)
+                        {
+                            await dispatcher.InvokeAsync(() =>
+                            {
+                                button1.Margin = new Thickness(x, y, 0, 0);
+                            });
+                            await Task.Delay(50, cancellationToken);
+                            y -= 3;
+                            if (y <= 10)
+                                break;
+
+                        }
+                    }
 
                     // Приостанавливаем выполнение асинхронной операции на 50 миллисекунд
                     await Task.Delay(50, cancellationToken);
